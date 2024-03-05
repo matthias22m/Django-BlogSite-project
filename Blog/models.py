@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your models here.
 
 class Catagory(models.Model):
@@ -16,10 +17,13 @@ class Post(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    catagory = models.ForeignKey(Catagory,on_delete=models.PROTECT)
+    category = models.ForeignKey(Catagory,on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('post_detail',kwargs={'pk': self.pk})
 
 class Comment(models.Model):
     content = models.TextField()

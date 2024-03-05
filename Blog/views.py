@@ -1,5 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+    )
 from Blog.models import Post, Comment
 
 
@@ -27,21 +34,52 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     # tamplate_name = 'blog/post_detail.html'
-    
-    
 
 
-def blog_categories(request,category):
-    posts = Post.objects.filter(categories__name__contain = category).order_by('-created_on')    
+class PostCreateView(LoginRequiredMixin,CreateView ):
+    model = Post
+    fields = ['title','content','category']
+
+    def form_valid(self, form):
+        form.instance.author =self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView ):
+    model = Post
+    fields = ['title','content','category']
+
+    def form_valid(self, form):
+        form.instance.author =self.request.user
+        return super().form_valid(form)
+    def test_func(self):
+        post = self.get_object()
+        
+        if self.request.user == post.author:
+            return True
+        return False
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/'
     
-    context = { "posts":posts, "category":category, "bool":bool }
+    def test_func(self):
+        post = self.get_object()
+        
+        if self.request.user == post.author:
+            return True
+        return False
     
-    return render(request, "blog/category.html", context)
+
+# def blog_categories(request,category):
+#     posts = Post.objects.filter(categories__name__contain = category).order_by('-created_on')    
+    
+#     context = { "posts":posts, "category":category, "bool":bool }
+    
+#     return render(request, "blog/category.html", context)
 
 
 def blog_detail(request,pk):
     post = Post.objects.get(pk=pk)
-    category = post.catagory
+    category = post.category
     bool["detail"] = True
     bool["home"] = False
     

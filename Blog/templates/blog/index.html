@@ -9,7 +9,7 @@
         </div>
         
         <div >
-            <a style=" color:beige; text-decoration: none"href="{% url 'blog_detail' post.pk %}">{{post.title | title}}</a>
+            <a style=" color:beige; text-decoration: none"href="{% url 'post_detail' post.pk %}">{{post.title | title}}</a>
             <hr>
             <p>{{post.content | slice:":100"}}...</p>
         </div>
