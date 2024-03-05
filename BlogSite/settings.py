@@ -128,7 +128,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'blogs_all'
+LOGIN_REDIRECT_URL = 'posts_all'
 LOGIN_URL = 'login'
 
 # Default primary key field type

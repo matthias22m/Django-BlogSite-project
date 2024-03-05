@@ -10,20 +10,20 @@ from django.views.generic import (
 from Blog.models import Post, Comment
 
 
-bool = {
-"home" : False,
-"detail" : False
-}
+# bool = {
+# "home" : False,
+# "detail" : False
+# }
 
-def blogs_all(request):
-    posts = Post.objects.all().order_by("-created_on")
+# def blogs_all(request):
+#     posts = Post.objects.all().order_by("-created_on")
     
-    bool["home"] = True
-    bool["detail"] = False
+#     # bool["home"] = True
+#     # bool["detail"] = False
     
-    context = { "posts":posts, "bool":bool}
+#     context = { "posts":posts, "bool":bool}
     
-    return render(request,"blog/index.html",context)
+#     return render(request,"blog/index.html",context)
 
 class PostListView(ListView):
     model = Post
@@ -77,14 +77,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 #     return render(request, "blog/category.html", context)
 
 
-def blog_detail(request,pk):
-    post = Post.objects.get(pk=pk)
-    category = post.category
-    bool["detail"] = True
-    bool["home"] = False
+# def blog_detail(request,pk):
+#     post = Post.objects.get(pk=pk)
+#     category = post.category
+#     bool["detail"] = True
+#     bool["home"] = False
     
-    comments = Comment.objects.filter(post = post).order_by('-created_on')
+#     comments = Comment.objects.filter(post = post).order_by('-created_on')
     
-    context = { "post":post , "comments":comments , "category":category, "bool":bool }
+#     context = { "post":post , "comments":comments , "category":category, "bool":bool }
     
-    return render(request, "blog/detail.html", context)
+#     return render(request, "blog/detail.html", context)
