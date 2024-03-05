@@ -1,0 +1,21 @@
+{% extends "Blog/base.html" %}
+{% block content %}
+{% block title %}
+    <h2>{{ object.title }}</h2>
+{% endblock title %}
+
+    <small>
+        {{ object.created_on.date }} | Category: {{category.name}}
+        
+    </small>
+    <p>{{object.content}}</p>
+    
+    {% if comments.all %}
+        <div>Comments</div>
+        
+        {% for comment in comments.all %}
+        <p>{{comment.author.first_name}} {{comment.author.last_name}} : {{comment.content}} ,{{comment.created_on|date:"F d, Y"}}</p>
+        {% endfor %}
+    {% endif %} 
+    <p>{{comment}}</p>
+{% endblock content %}
