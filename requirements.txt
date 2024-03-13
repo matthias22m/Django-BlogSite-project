@@ -16,7 +16,6 @@ phonenumbers==8.13.27
 pillow==10.2.0
 pipenv==2023.7.23
 platformdirs==3.5.1
-psycopg2==2.9.9
 requests==2.31.0
 soupsieve==2.4.1
 sqlparse==0.4.4
