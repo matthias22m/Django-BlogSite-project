@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +26,19 @@ SECRET_KEY = 'django-insecure-g*6leo#-05r@+6gxly%4(t!kdxso*ylp59a4gt%trt8h#%h)g4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+# ALLOWED_HOSTS = ['.vercel.app']
 
+# for hosting on pythonanywhere.com
+#.........................................................
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "matthias22m.pythonanywhere.com"]
+
+# Replace it with your DATABASES.
+DATABASES = {
+    'default': dj_database_url.config(
+        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
+    )
+}
+#.........................................................
 
 # Application definition
 
